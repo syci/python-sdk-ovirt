@@ -79,44 +79,44 @@ def getObjInfo (obje, objlist):
 				logging.info( 'host: %s is on cluster %s ' % (obj.name , hostoncluster))
 				
 if __name__ == "__main__":
-   	try:	
-        	api = API(url=APIURL,
-                      username=APIUSER,
-              	      password=APIPASS,
-                      ca_file=CAFILE)
-    		try: 
-			print ' \n I am logging in %s \n' % LOGFILENAME
+	try:
+			api = API(url=APIURL,
+					  username=APIUSER,
+					  password=APIPASS,
+					  ca_file=CAFILE)
+			try:
+				print ' \n I am logging in %s \n' % LOGFILENAME
 
-			for ob in objs:
-				if ob=="datacenters":
-					getObjInfo(ob, api.datacenters.list())
-				
-				if ob=="hosts":
-					getObjInfo(ob, api.hosts.list())
-				
-				if ob=="vms":
-					getObjInfo(ob, api.vms.list())
+				for ob in objs:
+					if ob=="datacenters":
+						getObjInfo(ob, api.datacenters.list())
 
-				if ob=="clusters":
-					print '\n %s %s %s \n'  % (greet,ob, greet)
-					
-					for cluster in api.clusters.list():
-						print '%s \t %s' % ( cluster.name, cluster.get_id())
-						logging.info( '%s \t %s' % ( cluster.name, cluster.get_id()))
-				
-				if ob=="storagedomains":
-					print '\n %s %s %s \n'  % (greet,ob, greet)
-					print '\t\tName \t\t ID \t\t\t MASTER \t\t\t\tSD.FORMAT \t\t SD.TYPE'
-					
-					for sd in api.storagedomains.list():
-						print '%20s %20s :%20s %20s %20s' % (sd.name, sd.get_id(), sd.get_master(), sd.get_storage_format(), sd.get_type() )
-						logging.info('%20s %20s :%20s %20s %20s' % (sd.name, sd.get_id(), sd.get_master(), sd.get_storage_format(), sd.get_type() ))
-    		
-    		except Exception as e:
-        		logging.debug('Error:\n%s' % str(e))
-		
-    		api.disconnect()
-	
+					if ob=="hosts":
+						getObjInfo(ob, api.hosts.list())
+
+					if ob=="vms":
+						getObjInfo(ob, api.vms.list())
+
+					if ob=="clusters":
+						print '\n %s %s %s \n'  % (greet,ob, greet)
+
+						for cluster in api.clusters.list():
+							print '%s \t %s' % ( cluster.name, cluster.get_id())
+							logging.info( '%s \t %s' % ( cluster.name, cluster.get_id()))
+
+					if ob=="storagedomains":
+						print '\n %s %s %s \n'  % (greet,ob, greet)
+						print '\t\tName \t\t ID \t\t\t MASTER \t\t\t\tSD.FORMAT \t\t SD.TYPE'
+
+						for sd in api.storagedomains.list():
+							print '%20s %20s :%20s %20s %20s' % (sd.name, sd.get_id(), sd.get_master(), sd.get_storage_format(), sd.get_type() )
+							logging.info('%20s %20s :%20s %20s %20s' % (sd.name, sd.get_id(), sd.get_master(), sd.get_storage_format(), sd.get_type() ))
+
+			except Exception as e:
+				logging.debug('Error:\n%s' % str(e))
+
+			api.disconnect()
+
 
 	except Exception as ex:
-   		logging.debug('Unexpected error: %s' % ex)
+		logging.debug('Unexpected error: %s' % ex)
